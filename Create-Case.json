@@ -1,0 +1,75 @@
+{
+  "name": "Create Case",
+  "integrationType": "salesforce-datadip",
+  "actionType": "custom",
+  "config": {
+    "request": {
+      "requestUrlTemplate": "/services/data/v54.0/sobjects/Case/",
+      "requestType": "POST",
+      "headers": {},
+      "requestTemplate": "{\"ContactId\": \"${input.contactId}\",\"Subject\": \"${input.subject}\",\"Description\": \"${input.description}\",\"Origin\":\"Email\", \"Status\": \"New\"}"
+    },
+    "response": {
+      "translationMap": {},
+      "translationMapDefaults": {},
+      "successTemplate": "${rawResult}"
+    }
+  },
+  "contract": {
+    "input": {
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "ContactIdRequest",
+        "description": "A Contact Id based Request",
+        "type": "object",
+        "required": [
+          "description",
+          "contactId",
+          "subject"
+        ],
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Description for the case"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Subject of the case"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact to relate the case to"
+          }
+        }
+      }
+    },
+    "output": {
+      "successSchema": {
+        "id": "http://example.com/example.json",
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "required": [
+          "errors",
+          "id",
+          "success"
+        ],
+        "properties": {
+          "errors": {
+            "id": "/properties/errors",
+            "items": {},
+            "type": "array"
+          },
+          "id": {
+            "id": "/properties/id",
+            "type": "string"
+          },
+          "success": {
+            "id": "/properties/success",
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  },
+  "secure": false
+}
